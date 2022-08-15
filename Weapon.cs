@@ -7,7 +7,7 @@
         public void Fire(Player player)
         {
             player.TakeDamage(_damage);
-            Bullets -= 1;
+            _bullets -= 1;
         }
     }
 
