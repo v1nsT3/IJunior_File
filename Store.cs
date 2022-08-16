@@ -1,21 +1,77 @@
-Good iPhone12 = new Good("IPhone 12");
-Good iPhone11 = new Good("IPhone 11");
+using System;
+using System.Collections.Generic;
 
-Warehouse warehouse = new Warehouse();
+public class Store
+{
+    Good iPhone12 = new Good("IPhone 12");
+    Good iPhone11 = new Good("IPhone 11");
 
-Shop shop = new Shop(warehouse);
+    Warehouse warehouse = new Warehouse();
 
-warehouse.Delive(iPhone12, 10);
-warehouse.Delive(iPhone11, 1);
+    Shop shop = new Shop(warehouse);
 
-//Вывод всех товаров на складе с их остатком
+    warehouse.Delive(iPhone12, 10);
+    warehouse.Delive(iPhone11, 1);
 
-Cart cart = shop.Cart();
-cart.Add(iPhone12, 4);
-cart.Add(iPhone11, 3); //при такой ситуации возникает ошибка так, как нет нужного количества товара на складе
+    //Вывод всех товаров на складе с их остатком
 
-//Вывод всех товаров в корзине
+    Cart cart = shop.Cart();
+    cart.Add(iPhone12, 4);
+    cart.Add(iPhone11, 3); //при такой ситуации возникает ошибка так, как нет нужного количества товара на складе
 
-Console.WriteLine(cart.Order().Paylink);
+    //Вывод всех товаров в корзине
 
-cart.Add(iPhone12, 9); //Ошибка, после заказа со склада убираются заказанные товары
+    Console.WriteLine(cart.Order().Paylink);
+
+    cart.Add(iPhone12, 9); //Ошибка, после заказа со склада убираются заказанные товары
+}
+
+public class Good
+{
+    private string _model;
+
+    public Good(string model)
+    {
+        _model = model;
+    }
+}
+
+public class Warehouse
+{
+    private List<Box> _boxes = new List<Box>();
+
+    public void Delive(Good good, int count)
+    {
+
+    }
+}
+
+public class Shop
+{
+    private Warehouse _warehouse;
+
+    public Shop(Warehouse warehouse)
+    {
+        _warehouse = warehouse;
+    }
+}
+
+public class Cart
+{
+
+}
+
+public class Box
+{
+    private Good _good;
+    private int _count;
+
+    public Box(Good good, int count)
+    {
+        if (count <= 0)
+            throw new ArgumentOutOfRangeException(nameof(count));
+
+        _good = good;
+        _count = count;
+    }
+}
